@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:JWReport.Views"
+             xmlns:button="clr-namespace:JWReport.Views.Buttons"
+             NavigationPage.HasNavigationBar="False"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             x:Class="JWReport.Pages.WelcomeProfilePage">
+    <ContentPage.Content>
+        <Grid RowDefinitions="200,*" BackgroundColor="White">
+            <Label Text="Welcome!" FontSize="60" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <ScrollView Grid.Row="1">
+                <StackLayout Margin="20" x:Name="FormLayout">
+                    <views:LoginEntryView x:Name="nameInput" BindingContext="{Binding NameEntryViewModel}" />
+                    <views:DateEntryView x:Name="baptismInput" BindingContext="{Binding BaptismDateEntryViewModel}" />
+                    <views:LoginEntryView x:Name="congInput" BindingContext="{Binding CongregationEntryViewModel}" />
+                    <views:DateEntryView x:Name="dobInput" BindingContext="{Binding DateOfBirthEntryViewModel}" />
+                    <views:DropdownEntryView x:Name="genderInput" BindingContext="{Binding GenderEntryViewModel}" />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                        <button:BindableButton BindingContext="{Binding BackButton}" WidthRequest="80" Margin="20,0" BackgroundColor="#EFEFEF" />
+                        <button:BindableButton BindingContext="{Binding NextButton}" WidthRequest="80" BorderWidth="2" BorderColor="Gray" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

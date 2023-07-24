@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:pages="clr-namespace:JWReport.Pages"
+             x:Class="JWReport.Pages.MenuLayout">
+  <!--Pages can be added as references or inline-->
+    <TabbedPage.Children>
+        <NavigationPage Title="Bible Studies" IsEnabled="False">
+            <x:Arguments>
+                <pages:BibleStudiesPage BindingContext="{Binding BibleStudiesPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="History">
+            <x:Arguments>
+                <pages:HistoryPage BindingContext="{Binding HistoryPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Field">
+            <x:Arguments>
+                <pages:FieldPage BindingContext="{Binding FieldPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="First Time">
+            <x:Arguments>
+                <pages:FirstTimePage BindingContext="{Binding FirstTimePageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Report Day" IsEnabled="False">
+            <x:Arguments>
+                <pages:ReportDayPage BindingContext="{Binding ReportDayPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Report Month" IsEnabled="False">
+            <x:Arguments>
+                <pages:ReportMonthPage BindingContext="{Binding ReportMonthPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Return Visits" IsEnabled="False">
+            <x:Arguments>
+                <pages:ReturnVisitsPage BindingContext="{Binding ReturnVisitsPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Schedule Visit" IsEnabled="False">
+            <x:Arguments>
+                <pages:ScheduleVisitPage BindingContext="{Binding ScheduleVisitPageModel}" />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+    <TabbedPage.CurrentPage>
+        <OnPlatform x:TypeArguments="Page">
+            <On Platform="Android">
+                <!-- Specify the desired page for Android -->
+                <pages:FieldPage />
+                <!-- Replace "SettingsPage" with your desired page -->
+            </On>
+            <On Platform="iOS">
+                <!-- Specify the desired page for iOS -->
+                <pages:FieldPage />
+                <!-- Replace "HomePage" with your desired page -->
+            </On>
+            <On Platform="UWP">
+                <!-- Specify the desired page for UWP -->
+                <pages:FieldPage />
+                <!-- Replace "SettingsPage" with your desired page -->
+            </On>
+        </OnPlatform>
+    </TabbedPage.CurrentPage>
+</TabbedPage>

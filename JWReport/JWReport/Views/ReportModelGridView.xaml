@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:JWReport.Views"
+             x:Class="JWReport.Views.ReportModelGridView">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <Label Text="{Binding Text}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
+        <BoxView Grid.Column="1" BackgroundColor="gray" WidthRequest="1" />
+        <views:NumberEntryView Grid.Column="2" BindingContext="{Binding NumberEntry}" />
+    </Grid>
+</ContentView>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:entries="clr-namespace:JWReport.Views.Entries"
+             x:Class="JWReport.Views.NumberEntryView">
+    <StackLayout Orientation="Horizontal">
+        <Grid RowDefinitions="30" Margin="0" Padding="0" IsVisible="{Binding Hide}">
+            <Image Source="decrease.png" WidthRequest="30" />
+            <Button WidthRequest="30" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="30" Command="{Binding DecrementCommand}" />
+
+        </Grid>
+        <entries:NumberEntry Keyboard="Numeric" Text="{Binding Number}" WidthRequest="25" HeightRequest="5" />
+        <!--<Button Text="+" WidthRequest="30" FontAttributes="Bold" BackgroundColor="#744E20" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="30" Command="{Binding IncrementCommand}" />-->
+        <Grid RowDefinitions="30" Margin="0" Padding="0" IsVisible="{Binding Hide}">
+            <Image Source="increase.png" WidthRequest="30" />
+            <Button WidthRequest="30" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="30" Command="{Binding IncrementCommand}" />
+            
+        </Grid>
+
+
+    </StackLayout>
+</ContentView>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:button="clr-namespace:JWReport.Views.Buttons"
+             x:Class="JWReport.Views.PrivilegeSelectionView">
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal" Margin="0,10">
+            <Image Source="plus" Aspect="AspectFit" />
+            <button:BindableButton BindingContext="{Binding PrivilegeSelection}" HorizontalOptions="StartAndExpand" BackgroundColor="White" FontSize="20" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

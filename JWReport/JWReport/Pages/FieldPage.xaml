@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JWReport.Pages.FieldPage"
+             xmlns:views="clr-namespace:JWReport.Views"
+             xmlns:layouts="clr-namespace:JWReport.Views.Layouts"
+             xmlns:skviews="clr-namespace:JWReport.Views.SkViews"
+             xmlns:buttons="clr-namespace:JWReport.Views.Buttons"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <Grid RowDefinitions="280,*" BackgroundColor="{StaticResource BackgroundColorLight}">
+            <skviews:RectGradientView StartColor="{StaticResource GradientStartColor}" 
+                                      EndColor="{StaticResource GradientEndColor}" />
+            <StackLayout Padding="20, 50, 20, 5">
+                <!-- Header Layout-->
+                <Label Text="{Binding RunningTotal, StringFormat='{}{0:h\\:mm\\:ss}'}" FontSize="50" HorizontalTextAlignment="Center" TextColor="white" />
+                <Label Text="{Binding CurrentStartTime, StringFormat='You clocked in at {0:h:mm tt}'}" HorizontalTextAlignment="Center" TextColor="white" IsVisible="{Binding IsClockedIn}" />
+            </StackLayout>
+            <StackLayout Grid.Row="1" Margin="10,50,10,10">
+                <!--<StackLayout Orientation="Horizontal">
+                    <Label Text="Recent Activity" VerticalOptions="Center" />
+                    <buttons:BindableButton BackgroundColor="Transparent"
+                             BindingContext="{Binding ViewAllModel}" FontAttributes="None" 
+                             HorizontalOptions="EndAndExpand" />
+                </StackLayout>-->
+                <layouts:ExtendedFrame BackgroundColor="White" CornerRadius="20" HasShadow="True"
+                       Padding="0,0" VerticalOptions="FillAndExpand" ShadowOpacity="0.25"
+                                       ShadowOffset="0,3" ShadowRadius="3">
+
+                    <views:FieldStatusReportView BindingContext="{Binding TodayFieldStatus}" />
+                </layouts:ExtendedFrame>
+            </StackLayout>
+
+            <Frame Grid.Row="1" Margin="0,-85,0,0" Padding="15" HasShadow="False" WidthRequest="105" BackgroundColor="{StaticResource BackgroundColorLight}"
+                                    VerticalOptions="Start" HeightRequest="105" CornerRadius="85"
+                                    HorizontalOptions="CenterAndExpand">
+                <buttons:BindableButton xct:ShadowEffect.Color="Black" xct:ShadowEffect.Radius="5" 
+                                        BindingContext="{Binding ClockInOutButtonModel}"
+                                    FontSize="25" WidthRequest="105"
+                                    VerticalOptions="Start" HeightRequest="105" FontAttributes="Bold" CornerRadius="50"
+                                    HorizontalOptions="CenterAndExpand" />
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:entries="clr-namespace:JWReport.Views.Entries"
+             xmlns:skViews="clr-namespace:JWReport.Views.SkViews"
+             x:Class="JWReport.Views.DropdownEntryView">
+  <ContentView.Content>
+        <Grid RowDefinitions="40,2" RowSpacing="0" Margin="15">
+            <entries:DropdownEntry x:Name="entInput" TextColor="black" Title="{Binding Title}" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedItem}" />
+            <BoxView x:Name="bvUnderline" Color="Gray" Opacity="0.3"
+                     HeightRequest="2" Grid.Row="1" />
+            <skViews:UnderlineGradientView StartColor="Transparent" ScaleX="0"
+                     EndColor="black" Grid.Row="1" x:Name="grdUnderline" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

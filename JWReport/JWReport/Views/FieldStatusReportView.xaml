@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:JWReport.Views"
+             x:Class="JWReport.Views.FieldStatusReportView">
+  <ContentView.Content>
+        <StackLayout>
+            <!-- Table Header -->
+            <Grid BackgroundColor="#CCCCCC" HeightRequest="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*" />
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="0.3*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding HeaderLeftText}" HorizontalOptions="Center" VerticalOptions="Center" />
+                <BoxView Grid.Column="1" BackgroundColor="gray" WidthRequest="1" />
+                <Label Text="{Binding HeaderRightText}" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Table Rows -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- First Row -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="0.3*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- First Row -->
+                            <!--<Label Text="Header 2" HorizontalOptions="Center" VerticalOptions="Center" />-->
+                            <views:ReportModelGridView BindingContext="{Binding PlacementModelGrid}" />
+                            <views:ReportModelGridView Grid.Row="1" BindingContext="{Binding VideoModelGrid}" />
+                            <views:ReportModelGridView Grid.Row="2" BindingContext="{Binding HourModelGrid}" />
+                            <views:ReportModelGridView Grid.Row="3" BindingContext="{Binding ReturnVisitModelGrid}" />
+                            <views:ReportModelGridView Grid.Row="4" BindingContext="{Binding BibleStudyModelGrid}" />
+                        </Grid>
+                    </StackLayout>
+                    <BoxView Grid.Column="1" BackgroundColor="gray" WidthRequest="1" />
+                    <Label Text="Cell 2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

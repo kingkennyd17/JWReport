@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:JWReport.Views"
+             xmlns:button="clr-namespace:JWReport.Views.Buttons"
+             x:Class="JWReport.Pages.FirstTimePage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="20" x:Name="FormLayout">
+                <views:LoginEntryView x:Name="nameInput" BindingContext="{Binding NameEntryViewModel}" />
+                <views:LoginEntryView x:Name="addressInput" BindingContext="{Binding AddressEntryViewModel}" />
+                <views:LoginEntryView x:Name="phoneInput" BindingContext="{Binding PhoneEntryViewModel}" />
+                <views:LoginEntryView x:Name="nextQuestionInput" BindingContext="{Binding NextQuestionEntryViewModel}" />
+                <views:DropdownEntryView x:Name="placementInput" BindingContext="{Binding PlacementnEntryViewModel}" />
+                <views:DateEntryView x:Name="nextMeetingInput" BindingContext="{Binding NextMeetingEntryViewModel}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                    <button:BindableButton BindingContext="{Binding AddButton}" BackgroundColor="Gray" WidthRequest="80" BorderWidth="2" BorderColor="Gray" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

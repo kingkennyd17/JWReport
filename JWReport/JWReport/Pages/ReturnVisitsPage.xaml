@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JWReport.Pages.ReturnVisitsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding ReturnVisits}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                    <Label Text="{Binding Address}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                    <Label Text="{Binding Phone}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                    <Label Text="{Binding NextMeeting, StringFormat='{}{0:h:mm:ss tt}'}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                    <Label Text="{Binding NextQuestion}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
