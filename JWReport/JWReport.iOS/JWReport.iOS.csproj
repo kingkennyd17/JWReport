@@ -62,12 +62,19 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\DateEntryRenderer.cs" />
     <Compile Include="Renderers\DropdownEntryRenderer.cs" />
     <Compile Include="Renderers\ExtendedFrameRenderer.cs" />
+    <Compile Include="Renderers\MessageIOS.cs" />
     <Compile Include="Renderers\PlainEntryRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -163,5 +170,17 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\drawable\increase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drawable\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drawable\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.ico" />
+    <BundleResource Include="Resources\drawable\firsttime.png" />
+    <BundleResource Include="Resources\drawable\telephone.png" />
+    <BundleResource Include="Resources\drawable\message.png" />
   </ItemGroup>
 </Project>

@@ -7,14 +7,19 @@
              xmlns:skviews="clr-namespace:JWReport.Views.SkViews"
              xmlns:buttons="clr-namespace:JWReport.Views.Buttons"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <!--<ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>-->
     <ContentPage.Content>
         <Grid RowDefinitions="280,*" BackgroundColor="{StaticResource BackgroundColorLight}">
             <skviews:RectGradientView StartColor="{StaticResource GradientStartColor}" 
                                       EndColor="{StaticResource GradientEndColor}" />
-            <StackLayout Padding="20, 50, 20, 5">
+            <StackLayout Padding="20, 50, 20, 5" >
                 <!-- Header Layout-->
                 <Label Text="{Binding RunningTotal, StringFormat='{}{0:h\\:mm\\:ss}'}" FontSize="50" HorizontalTextAlignment="Center" TextColor="white" />
-                <Label Text="{Binding CurrentStartTime, StringFormat='You clocked in at {0:h:mm tt}'}" HorizontalTextAlignment="Center" TextColor="white" IsVisible="{Binding IsClockedIn}" />
+                <Label Text="{Binding CurrentStartTime, StringFormat='You started at {0:h:mm tt}'}" HorizontalTextAlignment="Center" TextColor="white" IsVisible="{Binding IsClockedIn}" />
             </StackLayout>
             <StackLayout Grid.Row="1" Margin="10,50,10,10">
                 <!--<StackLayout Orientation="Horizontal">
@@ -24,11 +29,18 @@
                              HorizontalOptions="EndAndExpand" />
                 </StackLayout>-->
                 <layouts:ExtendedFrame BackgroundColor="White" CornerRadius="20" HasShadow="True"
-                       Padding="0,0" VerticalOptions="FillAndExpand" ShadowOpacity="0.25"
-                                       ShadowOffset="0,3" ShadowRadius="3">
+                       Padding="0,0" VerticalOptions="FillAndExpand" ShadowOpacity="0.9"
+                                       ShadowOffset="3,0" ShadowRadius="3"
+                                        xct:ShadowEffect.Color="Black" xct:ShadowEffect.Radius="5" >
 
                     <views:FieldStatusReportView BindingContext="{Binding TodayFieldStatus}" />
                 </layouts:ExtendedFrame>
+                <!--<layouts:ExtendedFrame IsVisible="{Binding Hide, Converter={StaticResource InvertedBoolConverter}}" BackgroundColor="White" CornerRadius="20" HasShadow="True"
+                       Padding="0,0" VerticalOptions="FillAndExpand" ShadowOpacity="0.25"
+                                       ShadowOffset="0,3" ShadowRadius="3">
+
+                    <views:FieldStatusReportView BindingContext="{Binding MonthFieldStatus}" />
+                </layouts:ExtendedFrame>-->
             </StackLayout>
 
             <Frame Grid.Row="1" Margin="0,-85,0,0" Padding="15" HasShadow="False" WidthRequest="105" BackgroundColor="{StaticResource BackgroundColorLight}"
@@ -36,7 +48,7 @@
                                     HorizontalOptions="CenterAndExpand">
                 <buttons:BindableButton xct:ShadowEffect.Color="Black" xct:ShadowEffect.Radius="5" 
                                         BindingContext="{Binding ClockInOutButtonModel}"
-                                    FontSize="25" WidthRequest="105"
+                                    FontSize="22" WidthRequest="105"
                                     VerticalOptions="Start" HeightRequest="105" FontAttributes="Bold" CornerRadius="50"
                                     HorizontalOptions="CenterAndExpand" />
             </Frame>

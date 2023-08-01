@@ -9,11 +9,18 @@ namespace JWReport.ViewModels
 {
     public class NumberEntryViewModel : ExtendedBindableObject
     {
-        private int _number;
-        public int Number
+        private int? _number;
+        public int? Number
         {
             get => _number;
             set => SetProperty(ref _number, value);
+        }
+
+        private TimeSpan _hours;
+        public TimeSpan Hours
+        {
+            get => _hours;
+            set => SetProperty(ref _hours, value);
         }
 
         private bool _hide;
@@ -23,16 +30,31 @@ namespace JWReport.ViewModels
             set => SetProperty(ref _hide, value);
         }
 
+        private bool _show;
+        public bool Show
+        {
+            get => _show;
+            set => SetProperty(ref _show, value);
+        }
+
         public Command IncrementCommand { get; }
         public Command DecrementCommand { get; }
 
         public NumberEntryViewModel(int number)
         {
             Number = number;
-            Hide = false;
+            Hide = true;
+            Show = false;
 
             IncrementCommand = new Command(Increment);
             DecrementCommand = new Command(Decrement);
+        }
+
+        public NumberEntryViewModel(TimeSpan hours)
+        {
+            Hours = hours;
+            Show = true;
+            Hide = false;
         }
 
 
@@ -40,6 +62,7 @@ namespace JWReport.ViewModels
         {
             Number = number;
             Hide = hide;
+            Show = false;
 
             IncrementCommand = new Command(increaseAction);
             DecrementCommand = new Command(decreaseAction);

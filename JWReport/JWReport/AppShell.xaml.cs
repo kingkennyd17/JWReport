@@ -15,6 +15,7 @@ namespace JWReport
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(FieldPage), typeof(FieldPage));
+            Routing.RegisterRoute(nameof(LaunchPage), typeof(LaunchPage));
             Routing.RegisterRoute(nameof(WelcomePrivilegePage), typeof(WelcomePrivilegePage));
             Routing.RegisterRoute(nameof(WelcomeProfilePage), typeof(WelcomeProfilePage));
             Routing.RegisterRoute(nameof(WelcomeGroupOverseerPage), typeof(WelcomeGroupOverseerPage));

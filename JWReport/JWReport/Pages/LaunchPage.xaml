@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             x:Class="JWReport.Pages.LaunchPage">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout WidthRequest="170" VerticalOptions="Center" HorizontalOptions="Center">
+                <!-- App Icon -->
+                <Image WidthRequest="170" HeightRequest="200" Aspect="AspectFit" HorizontalOptions="Center"
+                   Source="logo" VerticalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

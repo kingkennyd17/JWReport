@@ -1,6 +1,7 @@
 ﻿using JWReport.Database;
 using JWReport.Models;
 using JWReport.PageModels.Base;
+using JWReport.Services.Helpers;
 using JWReport.Services.Interface;
 using JWReport.Services.Repository;
 using JWReport.ViewModels;
@@ -8,6 +9,7 @@ using JWReport.ViewModels.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace JWReport.PageModels
 {
@@ -34,6 +36,11 @@ namespace JWReport.PageModels
         {
             BaseRepository<ReturnVisit> database = await FirstTimeRepository.Instance;
             BaseRepository<DailyReport> dailyreportRepository = await DailyReportRepository.Instance;
+            if (String.IsNullOrEmpty(NameEntryViewModel.Text)) 
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Name Cannot be Empty!");
+                return;
+            }
             ReturnVisit firstTime = new ReturnVisit();
             firstTime.Name = NameEntryViewModel.Text;
             firstTime.Address = AddressEntryViewModel.Text;
@@ -41,10 +48,13 @@ namespace JWReport.PageModels
             firstTime.NextQuestion = NextQuestionEntryViewModel.Text;
             firstTime.Upgraded = false;
             firstTime.ReturnType = "First Time";
-            firstTime.NextMeeting = DateTime.ParseExact(NextMeetingEntryViewModel.SelectedDate, dateFormatConvert, null);
+            if (NextMeetingEntryViewModel.SelectedDate != null) firstTime.NextMeeting = DateTime.ParseExact(NextMeetingEntryViewModel.SelectedDate, dateFormatConvert, null);
+            else firstTime.NextMeeting = null;
+            //firstTime.NextMeeting = DateTime.ParseExact(NextMeetingEntryViewModel.SelectedDate, dateFormatConvert, null);
             //firstTime.Placement = PlacementnEntryViewModel.SelectedItem;
 
             await _firstTimeRepository.SaveAsync(firstTime);
+            DependencyService.Get<IMessage>().ShortAlert("Saved!");
 
 
             if (PlacementnEntryViewModel.SelectedItem == "Video")
@@ -60,6 +70,14 @@ namespace JWReport.PageModels
                 await _dailyReportRepository.IncrementVideo();
                 await _dailyReportRepository.IncrementPlacement();
             }
+
+            NameEntryViewModel.Text = "";
+            AddressEntryViewModel.Text = "";
+            PhoneEntryViewModel.Text = "";
+            NextQuestionEntryViewModel.Text = "";
+            NextMeetingEntryViewModel.SelectedDate = null;
+            NextMeetingEntryViewModel.Placeholder = dateFormat + "(next meeting)";
+            PlacementnEntryViewModel.SelectedItem = "";
         }
 
         public string dateFormat = "MM/dd/yyyy";
@@ -69,7 +87,13 @@ namespace JWReport.PageModels
         public LoginEntryViewModel PhoneEntryViewModel { get; set; }
         public LoginEntryViewModel NextQuestionEntryViewModel { get; set; }
         public DropdownEntryViewModel PlacementnEntryViewModel { get; set; }
-        public DateEntryViewModel NextMeetingEntryViewModel { get; set; }
+
+        private DateEntryViewModel _nextMeetingEntryViewModel;
+        public DateEntryViewModel NextMeetingEntryViewModel 
+        { 
+            get => _nextMeetingEntryViewModel; 
+            set => SetProperty(ref _nextMeetingEntryViewModel, value); 
+        }
         public ButtonModel AddButton { get; set; }
     }
 }

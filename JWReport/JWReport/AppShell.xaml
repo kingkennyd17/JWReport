@@ -155,8 +155,8 @@
     </Shell.ItemTemplate>
 
 
-    <ShellItem Route="welcomeprivilege" FlyoutItemIsVisible="False">
-        <ShellContent ContentTemplate="{DataTemplate local:WelcomePrivilegePage}" />
+    <ShellItem Route="LaunchPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LaunchPage}" />
     </ShellItem>
     <!-- 
         When the Flyout is visible this defines the content to display in the flyout.
@@ -164,11 +164,17 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="Field" Icon="house.png">
-        <Tab Title="Field">
-            <ShellContent Route="FieldPage" Icon="house.png" ContentTemplate="{DataTemplate local:FieldPage}" />
+        <Tab Title="Field" Icon="house.png">
+            <ShellContent Route="FieldPage" ContentTemplate="{DataTemplate local:FieldPage}" />
         </Tab>
-        <Tab Title="First Time">
+        <Tab Title="First Time" Icon="firsttime.png">
             <ShellContent Route="FirstTimePage" ContentTemplate="{DataTemplate local:FirstTimePage}" />
+        </Tab>
+        <Tab Title="Bible Study" Icon="biblestudy.png">
+            <ShellContent Route="FirstTimePage" ContentTemplate="{DataTemplate local:BibleStudyEditPage}" />
+        </Tab>
+        <Tab Title="Return Visit" Icon="returnvisit.png">
+            <ShellContent Route="FirstTimePage" ContentTemplate="{DataTemplate local:ReturnVisitEditPage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Return Visits" Icon="returnvisit.png">
@@ -189,6 +195,12 @@
     <FlyoutItem Title="History" Icon="calendar.png">
         <ShellContent Route="HistoryPage" ContentTemplate="{DataTemplate local:HistoryPage}" />
     </FlyoutItem>
+    <ShellItem Route="WelcomePrivilegePage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:WelcomePrivilegePage}" />
+    </ShellItem>
+    <ShellItem Route="WelcomeGroupOverseerPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:WelcomeGroupOverseerPage}" />
+    </ShellItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">

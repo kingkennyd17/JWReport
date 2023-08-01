@@ -1,4 +1,6 @@
-﻿using JWReport.PageModels;
+﻿using JWReport.Models;
+using JWReport.Models.HelperModel;
+using JWReport.PageModels;
 using JWReport.Services.Interface;
 using JWReport.Services.Repository;
 using System;
@@ -27,6 +29,11 @@ namespace JWReport.Pages
             base.OnAppearing();
 
             BindingContext = new ReturnVisitsPageModel(returnVisitRepository);
+        }
+        void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string previous = (e.PreviousSelection.FirstOrDefault() as RVPhoneMessageModel)?.Name;
+            int? Id = (e.CurrentSelection.FirstOrDefault() as RVPhoneMessageModel)?.Id;
         }
     }
 }

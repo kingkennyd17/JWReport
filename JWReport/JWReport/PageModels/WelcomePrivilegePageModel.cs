@@ -36,30 +36,6 @@ namespace JWReport.PageModels
             BaptizedPublisher = new PrivilegeSelectionViewModel(baptizedButton);
             RegularPioneer = new PrivilegeSelectionViewModel(regularButton);
             SpecialPioneer = new PrivilegeSelectionViewModel(specialButton);
-            this.InitializeAsync(null);
-        }
-
-        public async override Task InitializeAsync(object navigationData)
-        {
-            BaseRepository<GroupOverseer> database = await GroupOverseerRepository.Instance;
-            GroupOverseer groupOverseer = new GroupOverseer();
-            groupOverseer = await database.GetAsync(1);
-            BaseRepository<User> userdatabase = await UserRepository.Instance;
-            User userinfo = new User();
-            userinfo = await userdatabase.GetAsync(1);
-            if (userinfo == null)
-            {
-                //await Shell.Current.GoToAsync($"//{nameof(FieldPage)}");
-            }
-            else if (groupOverseer == null)
-            {
-                await Shell.Current.GoToAsync($"//{nameof(WelcomeGroupOverseerPage)}");
-            }
-            else
-            {
-                await Shell.Current.GoToAsync($"//{nameof(FieldPage)}");
-            }
-            await base.InitializeAsync(navigationData);
         }
 
         private async void OnSelectPrivilege(string parameter)

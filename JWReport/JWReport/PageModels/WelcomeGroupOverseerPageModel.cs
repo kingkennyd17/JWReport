@@ -64,7 +64,7 @@ namespace JWReport.PageModels
 
         private async void OnBackAction()
         {
-            await Shell.Current.GoToAsync($"{nameof(WelcomeProfilePage)}");
+            await Shell.Current.GoToAsync($"{nameof(WelcomeProfilePage)}?{nameof(WelcomeProfilePageModel.ItemId)}={null}");
         }
 
         public ButtonModel SubmitButton { get; set; }

@@ -28,6 +28,13 @@ namespace JWReport.ViewModels
             Text = text;
             NumberEntry = new NumberEntryViewModel(initValue, hide, IncreaseAction, DecreaseAction);
         }
+        public ReportModelGridViewModel(IDailyReportRepository dailyReportRepository, string text, TimeSpan hours)
+        {
+            _dailyReportRepository = dailyReportRepository;
+
+            Text = text;
+            NumberEntry = new NumberEntryViewModel(hours);
+        }
 
         private async void DecreaseAction()
         {
@@ -35,22 +42,18 @@ namespace JWReport.ViewModels
             if (Text == "Placement")
             {
                 await _dailyReportRepository.DecrementPlacement();
+                if(NumberEntry.Number > 0)
+                    NumberEntry.Number--;
             }
             else if(Text == "Video")
             {
                 await _dailyReportRepository.DecrementVideo();
-            }
-            else if (Text == "Hour")
-            {
-                await _dailyReportRepository.DecrementHour();
+                NumberEntry.Number--;
             }
             else if (Text == "Return Visit")
             {
                 await _dailyReportRepository.DecrementReturnVisit();
-            }
-            else if (Text == "Bible Study")
-            {
-                await _dailyReportRepository.DecrementBibleStudy();
+                NumberEntry.Number--;
             }
         }
 
@@ -60,22 +63,17 @@ namespace JWReport.ViewModels
             if (Text == "Placement")
             {
                 await _dailyReportRepository.IncrementPlacement();
+                NumberEntry.Number++;
             }
             else if (Text == "Video")
             {
                 await _dailyReportRepository.IncrementVideo();
-            }
-            else if (Text == "Hour")
-            {
-                await _dailyReportRepository.IncrementHour();
+                NumberEntry.Number++;
             }
             else if (Text == "Return Visit")
             {
                 await _dailyReportRepository.IncrementReturnVisit();
-            }
-            else if (Text == "Bible Study")
-            {
-                await _dailyReportRepository.IncrementBibleStudy();
+                NumberEntry.Number++;
             }
         }
     }
