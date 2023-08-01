@@ -21,14 +21,24 @@ namespace JWReport.Models
         public string ReturnType { get; set; }
         public bool Upgraded { get; set; }
         public DateTime? NextMeeting { get; set; }
-        public Color RowColor
+        public Color StartColor
         {
             get
             {
                 if (Id % 2 == 0)
-                    return Color.Gray;
+                    return Color.Silver;
                   else
                     return Color.White;
+            }
+        }
+        public Color EndColor
+        {
+            get
+            {
+                if (Id % 2 == 0)
+                    return Color.White;
+                else
+                    return Color.Silver;
             }
         }
     }

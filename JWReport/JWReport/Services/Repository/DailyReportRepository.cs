@@ -13,7 +13,12 @@ namespace JWReport.Services.Repository
         public Task<DailyReport> GetReportbyDateAsync(DateTime date)
         {
             return Database.Table<DailyReport>().Where(i => i.Date == date.Date).FirstOrDefaultAsync();
-        } 
+        }
+
+        public Task<List<DailyReport>> GetAllDailyReportforMonthAsync(string month)
+        {
+            return Database.Table<DailyReport>().Where(i => i.Month == month).ToListAsync();
+        }
         //Placement
         public Task<int> IncrementPlacement()
         {
@@ -29,10 +34,8 @@ namespace JWReport.Services.Repository
                 DailyReport dailyReport = new DailyReport();
                 dailyReport.Date = DateTime.Today;
                 dailyReport.Placement = 1;
-                dailyReport.Video = 0;
-                dailyReport.BibleStudy = 0;
-                dailyReport.ReturnVisit = 0;
-                dailyReport.Hour = 0;
+                dailyReport.Month = DateTime.Now.ToString("MMMM");
+                dailyReport.Year = DateTime.Now.Year;
 
                 return Database.InsertAsync(dailyReport);
             }
@@ -49,6 +52,39 @@ namespace JWReport.Services.Repository
             {
                 return Database.InsertAsync(item);
             }
+        }
+
+        public Task<int> SaveStartAsync()
+        {
+            var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
+            if (todayReport.Result != null)
+            {
+                todayReport.Result.StartTime = DateTime.Now;
+                todayReport.Result.OnField = true;
+                return Database.UpdateAsync(todayReport.Result);
+            }
+            else
+            {
+                DailyReport item = new DailyReport();
+                item.StartTime = DateTime.Now;
+                item.Date = DateTime.Today;
+                item.Month = DateTime.Now.ToString("MMMM");
+                item.Year = DateTime.Now.Year;
+                item.OnField = true;
+                return Database.InsertAsync(item);
+            }
+        }
+
+        public Task<int> SaveEndAsync()
+        {
+            var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
+            //if (todayReport.Result != null)
+            //{
+            todayReport.Result.EndTime = DateTime.Now;
+            todayReport.Result.TimeAuto += (DateTime.Now - todayReport.Result.StartTime);
+            todayReport.Result.OnField = false;
+            return Database.UpdateAsync(todayReport.Result);
+            //}
         }
 
         public Task<int> DecrementPlacement()
@@ -80,11 +116,9 @@ namespace JWReport.Services.Repository
             {
                 DailyReport dailyReport = new DailyReport();
                 dailyReport.Date = DateTime.Today;
-                dailyReport.Placement = 0;
                 dailyReport.Video = 1;
-                dailyReport.BibleStudy = 0;
-                dailyReport.ReturnVisit = 0;
-                dailyReport.Hour = 0;
+                dailyReport.Month = DateTime.Now.ToString("MMMM");
+                dailyReport.Year = DateTime.Now.Year;
 
                 return Database.InsertAsync(dailyReport);
             }
@@ -105,44 +139,6 @@ namespace JWReport.Services.Repository
             return null;
         }
 
-        public Task<int> IncrementHour()
-        {
-            var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
-            if (todayReport.Result != null)
-            {
-                todayReport.Result.Hour++;
-
-                return Database.UpdateAsync(todayReport.Result);
-            }
-            else
-            {
-                DailyReport dailyReport = new DailyReport();
-                dailyReport.Date = DateTime.Today;
-                dailyReport.Placement = 0;
-                dailyReport.Video = 0;
-                dailyReport.BibleStudy = 0;
-                dailyReport.ReturnVisit = 0;
-                dailyReport.Hour = 1;
-
-                return Database.InsertAsync(dailyReport);
-            }
-        }
-
-        public Task<int> DecrementHour()
-        {
-            var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
-            if (todayReport.Result != null)
-            {
-                if (todayReport.Result.Hour > 0)
-                {
-                    todayReport.Result.Hour--;
-
-                    return Database.UpdateAsync(todayReport.Result);
-                }
-            }
-            return null;
-        }
-
         public Task<int> IncrementReturnVisit()
         {
             var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
@@ -156,11 +152,9 @@ namespace JWReport.Services.Repository
             {
                 DailyReport dailyReport = new DailyReport();
                 dailyReport.Date = DateTime.Today;
-                dailyReport.Placement = 0;
-                dailyReport.Video = 0;
-                dailyReport.BibleStudy = 0;
                 dailyReport.ReturnVisit = 1;
-                dailyReport.Hour = 0;
+                dailyReport.Month = DateTime.Now.ToString("MMMM");
+                dailyReport.Year = DateTime.Now.Year;
 
                 return Database.InsertAsync(dailyReport);
             }
@@ -174,44 +168,6 @@ namespace JWReport.Services.Repository
                 if (todayReport.Result.ReturnVisit > 0)
                 {
                     todayReport.Result.ReturnVisit--;
-
-                    return Database.UpdateAsync(todayReport.Result);
-                }
-            }
-            return null;
-        }
-
-        public Task<int> IncrementBibleStudy()
-        {
-            var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
-            if (todayReport.Result != null)
-            {
-                todayReport.Result.BibleStudy++;
-
-                return Database.UpdateAsync(todayReport.Result);
-            }
-            else
-            {
-                DailyReport dailyReport = new DailyReport();
-                dailyReport.Date = DateTime.Today;
-                dailyReport.Placement = 0;
-                dailyReport.Video = 0;
-                dailyReport.BibleStudy = 1;
-                dailyReport.ReturnVisit = 0;
-                dailyReport.Hour = 0;
-
-                return Database.InsertAsync(dailyReport);
-            }
-        }
-
-        public Task<int> DecrementBibleStudy()
-        {
-            var todayReport = Database.Table<DailyReport>().Where(i => i.Date == DateTime.Today).FirstOrDefaultAsync();
-            if (todayReport.Result != null)
-            {
-                if (todayReport.Result.BibleStudy > 0)
-                {
-                    todayReport.Result.BibleStudy--;
 
                     return Database.UpdateAsync(todayReport.Result);
                 }
@@ -236,9 +192,8 @@ namespace JWReport.Services.Repository
                 dailyReport.Date = DateTime.Today;
                 dailyReport.Placement = 1;
                 dailyReport.Video = 1;
-                dailyReport.BibleStudy = 0;
-                dailyReport.ReturnVisit = 0;
-                dailyReport.Hour = 0;
+                dailyReport.Month = DateTime.Now.ToString("MMMM");
+                dailyReport.Year = DateTime.Now.Year;
 
                 return Database.InsertAsync(dailyReport);
             }

@@ -3,6 +3,7 @@ using JWReport.Models;
 using JWReport.Models.Enum;
 using JWReport.PageModels.Base;
 using JWReport.Pages;
+using JWReport.Services.Helpers;
 using JWReport.Services.Interface;
 using JWReport.Services.Navigation;
 using JWReport.Services.Repository;
@@ -44,17 +45,27 @@ namespace JWReport.PageModels
         {
             try
             {
-                if (itemId != null)
+                if (!String.IsNullOrEmpty(itemId))
                     Privelege = (PrivilegeOfService)int.Parse(itemId.ToString());
                 BaseRepository<User> database = await UserRepository.Instance;
                 User userinfo = new User();
-                userinfo = await database.GetAsync(1);
+                userinfo = database.GetAsync(1).Result;
                 if (userinfo != null)
                 {
                     NameEntryViewModel.Text = userinfo.Name;
-                    BaptismDateEntryViewModel.SelectedDate = userinfo.BaptismDate?.ToString(dateFormatConvert);
+                    if (userinfo.BaptismDate != null)
+                    {
+                        BaptismDateEntryViewModel.SelectedDate = userinfo.BaptismDate?.ToString(dateFormat);
+                        BaptismDateEntryViewModel.Placeholder = userinfo.BaptismDate?.ToString(dateFormat);
+                    }
+                    else BaptismDateEntryViewModel.SelectedDate = null;
                     CongregationEntryViewModel.Text = userinfo.Congregation;
-                    DateOfBirthEntryViewModel.SelectedDate = userinfo.DateOfBirth?.ToString(dateFormatConvert);
+                    if (userinfo.DateOfBirth != null)
+                    {
+                        DateOfBirthEntryViewModel.SelectedDate = userinfo.DateOfBirth?.ToString(dateFormat);
+                        DateOfBirthEntryViewModel.Placeholder = userinfo.DateOfBirth?.ToString(dateFormat);
+                    }
+                    else DateOfBirthEntryViewModel.SelectedDate = null;
                     GenderEntryViewModel.SelectedItem = userinfo.Gender;
                     if (Privelege == 0)
                         Privelege = userinfo.Privilege;
@@ -87,11 +98,18 @@ namespace JWReport.PageModels
 
         private async void OnNextAction()
         {
+            if (String.IsNullOrEmpty(NameEntryViewModel.Text))
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Name Cannot be Empty!");
+                return;
+            }
             User userinfo = new User();
             userinfo.Name = NameEntryViewModel.Text;
-            userinfo.BaptismDate = DateTime.ParseExact(BaptismDateEntryViewModel.SelectedDate, dateFormatConvert, null);
+            if (BaptismDateEntryViewModel.SelectedDate != null) userinfo.BaptismDate = DateTime.ParseExact(BaptismDateEntryViewModel.SelectedDate, dateFormatConvert, null);
+            else userinfo.BaptismDate = null;
             userinfo.Congregation = CongregationEntryViewModel.Text;
-            userinfo.DateOfBirth = DateTime.ParseExact(DateOfBirthEntryViewModel.SelectedDate, dateFormatConvert, null);
+            if (DateOfBirthEntryViewModel.SelectedDate != null) userinfo.DateOfBirth = DateTime.ParseExact(DateOfBirthEntryViewModel.SelectedDate, dateFormatConvert, null);
+            else userinfo.DateOfBirth = null;
             userinfo.Gender = GenderEntryViewModel.SelectedItem;
             userinfo.Privilege = Privelege;
 
@@ -130,9 +148,21 @@ namespace JWReport.PageModels
         public ButtonModel NextButton { get; set; }
         public ButtonModel BackButton { get; set; }
         public LoginEntryViewModel NameEntryViewModel { get; set; }
-        public DateEntryViewModel BaptismDateEntryViewModel { get; set; }
+
+        private DateEntryViewModel _baptismDateEntryViewModel;
+        public DateEntryViewModel BaptismDateEntryViewModel 
+        { 
+            get => _baptismDateEntryViewModel; 
+            set => SetProperty(ref _baptismDateEntryViewModel, value);
+        }
         public LoginEntryViewModel CongregationEntryViewModel { get; set; }
-        public DateEntryViewModel DateOfBirthEntryViewModel { get; set; }
+
+        private DateEntryViewModel _dateOfBirthEntryViewModel;
+        public DateEntryViewModel DateOfBirthEntryViewModel 
+        { 
+            get => _dateOfBirthEntryViewModel; 
+            set => SetProperty(ref _dateOfBirthEntryViewModel, value); 
+        }
         public DropdownEntryViewModel GenderEntryViewModel { get; set; }
     }
 }

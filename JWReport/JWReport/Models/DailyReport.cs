@@ -9,30 +9,25 @@ namespace JWReport.Models
         [PrimaryKey]
         [AutoIncrement]
         public int Id { get; set; }
-        public int? Placement { get; set; }
-        public int? Video { get; set; }
-        public int? HourAuto
+        public int Placement { get; set; }
+        public int Video { get; set; }
+        public int Hours
         {
-            get => (EndTime.Value - StartTime.Value).Hours;
+            get => (Time + TimeAuto).Hours;
         }
-        public int? Hour { get; set; }
-        public TimeSpan? Time
+        public double TotalHours
         {
-            get => EndTime - StartTime;
+            get => (Time + TimeAuto).TotalHours;
         }
-        //public double Minute
-        //{
-        //    get => ((EndTime - StartTime).TotalHours - (double)(EndTime - StartTime).Hours) * 60;
-        //}
-        public int? ReturnVisit { get; set; }
-        public int? BibleStudy { get; set; }
-        public DateTime? StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
+        public TimeSpan TimeAuto { get; set; }
+        public TimeSpan Time { get; set; }
+        public int ReturnVisit { get; set; }
+        public int BibleStudy { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public DateTime Date { get; set; }
         public bool OnField { get; set; }
-        public string Month 
-        { 
-            get => Date.ToString("MMMM");
-        }
+        public string Month { get; set; }
+        public int Year { get; set; }
     }
 }

@@ -2,11 +2,12 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:JWReport.Views"
+             xmlns:skviews="clr-namespace:JWReport.Views.SkViews"
              x:Class="JWReport.Views.FieldStatusReportView">
   <ContentView.Content>
-        <StackLayout>
+        <StackLayout Spacing="0">
             <!-- Table Header -->
-            <Grid BackgroundColor="#CCCCCC" HeightRequest="30">
+            <Grid BackgroundColor="#CCCCCC" ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*" />
                     <ColumnDefinition Width="1" />
@@ -18,40 +19,66 @@
             </Grid>
 
             <!-- Table Rows -->
-            <Grid>
+            <Grid VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <!-- First Row -->
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.7*" />
                         <ColumnDefinition Width="1" />
                         <ColumnDefinition Width="0.3*" />
                     </Grid.ColumnDefinitions>
                     <StackLayout>
-                        <Grid>
+                        <Grid RowSpacing="0" VerticalOptions="FillAndExpand">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="0.1*" />
                             </Grid.RowDefinitions>
 
                             <!-- First Row -->
                             <!--<Label Text="Header 2" HorizontalOptions="Center" VerticalOptions="Center" />-->
+                            <skviews:HorizontalRectGradientView StartColor="Silver" 
+                                      EndColor="White" />
                             <views:ReportModelGridView BindingContext="{Binding PlacementModelGrid}" />
+                            <skviews:HorizontalRectGradientView Grid.Row="1" StartColor="White" 
+                                      EndColor="Silver" />
                             <views:ReportModelGridView Grid.Row="1" BindingContext="{Binding VideoModelGrid}" />
+                            <skviews:HorizontalRectGradientView Grid.Row="2" StartColor="Silver" 
+                                      EndColor="White" />
                             <views:ReportModelGridView Grid.Row="2" BindingContext="{Binding HourModelGrid}" />
+                            <skviews:HorizontalRectGradientView Grid.Row="3" StartColor="White" 
+                                      EndColor="Silver" />
                             <views:ReportModelGridView Grid.Row="3" BindingContext="{Binding ReturnVisitModelGrid}" />
+                            <skviews:HorizontalRectGradientView Grid.Row="4" StartColor="Silver" 
+                                      EndColor="White" />
                             <views:ReportModelGridView Grid.Row="4" BindingContext="{Binding BibleStudyModelGrid}" />
                         </Grid>
                     </StackLayout>
                     <BoxView Grid.Column="1" BackgroundColor="gray" WidthRequest="1" />
-                    <Label Text="Cell 2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Text="Cell 2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
                 </Grid>
+            </Grid>
+
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- First Row -->
+                <!--<Label Text="Header 2" HorizontalOptions="Center" VerticalOptions="Center" />-->
+                <skviews:HorizontalRectGradientView StartColor="White" 
+                                      EndColor="Silver" />
+                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                    <Label x:Name="movingTextLabel" HorizontalOptions="Start"
+                       FontSize="20" LineBreakMode="NoWrap"
+                       VerticalOptions="CenterAndExpand" />
+                </ScrollView>
             </Grid>
         </StackLayout>
     </ContentView.Content>

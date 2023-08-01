@@ -11,6 +11,6 @@
         </Grid.ColumnDefinitions>
         <Label Text="{Binding Text}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
         <BoxView Grid.Column="1" BackgroundColor="gray" WidthRequest="1" />
-        <views:NumberEntryView Grid.Column="2" BindingContext="{Binding NumberEntry}" />
+        <views:NumberEntryView Grid.Column="2" BindingContext="{Binding NumberEntry}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
     </Grid>
 </ContentView>

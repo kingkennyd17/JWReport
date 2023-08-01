@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JWReport.Views.PhoneMessageIconView">
+  <ContentView.Content>
+        <StackLayout Orientation="Vertical" WidthRequest="90">
+            <Grid RowDefinitions="40" Margin="0" Padding="0">
+                <Image Source="message.png" WidthRequest="90" HeightRequest="90" />
+                <Button WidthRequest="55" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="55" Command="{Binding SendMessageCommand}" />
+
+            </Grid>
+            <Grid RowDefinitions="40" Margin="0" Padding="0">
+                <Image Source="telephone.png" WidthRequest="90" HeightRequest="90" />
+                <Button WidthRequest="55" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="55" Command="{Binding PhoneCallCommand}" />
+
+            </Grid>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

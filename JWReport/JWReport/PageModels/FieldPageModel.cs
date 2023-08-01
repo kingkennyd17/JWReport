@@ -1,4 +1,6 @@
-﻿using JWReport.PageModels.Base;
+﻿using JWReport.Database;
+using JWReport.Models;
+using JWReport.PageModels.Base;
 using JWReport.Pages;
 using JWReport.Services.Interface;
 using JWReport.Services.Navigation;
@@ -21,6 +23,7 @@ namespace JWReport.PageModels
         private Timer _timer;
         public FieldPageModel(IDailyReportRepository dailyReportRepository)
         {
+            InstanciateTables();
             _dailyReportRepository = dailyReportRepository;
             ClockInOutButtonModel = new ButtonModel("START", new Command(OnClockInOutAction));
             TodayFieldStatus = new FieldStatusReportViewModel(_dailyReportRepository, "Month");
@@ -31,16 +34,24 @@ namespace JWReport.PageModels
             OnInit();
         }
 
-        private async void OnInit()
+        private async void InstanciateTables()
         {
-            var todayReport = await _dailyReportRepository.GetReportbyDateAsync(DateTime.Today);
+            BaseRepository<DailyReport> dailyReport = await DailyReportRepository.Instance;
+            BaseRepository<ReturnVisit> returnVisit = await ReturnVisitRepository.Instance;
+        }
+
+        private void OnInit()
+        {
+            var todayReport = _dailyReportRepository.GetReportbyDateAsync(DateTime.Today).Result;
             if (todayReport != null)
             {
                 if (todayReport.OnField)
                 {
+                    IsClockedIn = true;
                     ClockInOutButtonModel.Text = "STOP";
                     TodayFieldStatus = new FieldStatusReportViewModel(_dailyReportRepository, "Day");
                     RunningTotal = DateTime.Now - todayReport.StartTime;
+                    TodayFieldStatus.HourModelGrid.NumberEntry.Hours += (DateTime.Now - todayReport.StartTime);
                     _timer.Enabled = true;
                 }
             }
@@ -49,6 +60,7 @@ namespace JWReport.PageModels
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             RunningTotal += TimeSpan.FromSeconds(1);
+            TodayFieldStatus.HourModelGrid.NumberEntry.Hours += TimeSpan.FromSeconds(1);
         }
 
         bool _isClockedIn;
@@ -58,8 +70,8 @@ namespace JWReport.PageModels
             set => SetProperty(ref _isClockedIn, value);
         }
 
-        TimeSpan? _runningTotal;
-        public TimeSpan? RunningTotal
+        TimeSpan _runningTotal;
+        public TimeSpan RunningTotal
         {
             get => _runningTotal;
             set => SetProperty(ref _runningTotal, value);
@@ -86,23 +98,34 @@ namespace JWReport.PageModels
             set => SetProperty(ref _clockInOutButtonModel, value);
         }
 
-        private async void OnClockInOutAction()
+        private void OnClockInOutAction()
         {
             if (IsClockedIn)
             {
+                var result = _dailyReportRepository.SaveEndAsync().Result;
                 _timer.Enabled = false;
                 RunningTotal = TimeSpan.Zero;
                 ClockInOutButtonModel.Text = "START";
+
+                TodayFieldStatus = new FieldStatusReportViewModel(_dailyReportRepository, "Month");
             }
             else
             {
+                var result = _dailyReportRepository.SaveStartAsync().Result;
                 CurrentStartTime = DateTime.Now;
                 _timer.Enabled = true;
                 ClockInOutButtonModel.Text = "STOP";
+
+                TodayFieldStatus = new FieldStatusReportViewModel(_dailyReportRepository, "Day");
             }
             IsClockedIn = !IsClockedIn;
         }
 
-        public FieldStatusReportViewModel TodayFieldStatus { get; set; }
+        private FieldStatusReportViewModel _todayFieldStatus;
+        public FieldStatusReportViewModel TodayFieldStatus 
+        { 
+            get => _todayFieldStatus; 
+            set => SetProperty(ref _todayFieldStatus, value); 
+        }
     }
 }

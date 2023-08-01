@@ -22,5 +22,11 @@ namespace JWReport.Pages
             InitializeComponent();
             BindingContext = new FieldPageModel(dailyReportRepository);
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            BindingContext = new FieldPageModel(dailyReportRepository);
+        }
     }
 }

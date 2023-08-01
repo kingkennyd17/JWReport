@@ -6,7 +6,7 @@
              x:Class="JWReport.Views.LoginEntryView">
   <ContentView.Content>
         <Grid RowDefinitions="40,2" RowSpacing="0" Margin="15">
-            <entries:PlainEntry Placeholder="{Binding Placeholder}" PlaceholderColor="black"
+            <entries:PlainEntry Placeholder="{Binding Placeholder}"
                                 x:Name="entInput" TextColor="black"
                                 Text="{Binding Text}" IsPassword="{Binding IsPassword}" />
             <BoxView x:Name="bvUnderline" Color="Black" Opacity="0.3"
